@@ -15,4 +15,3 @@ extern void PrintTileData(unsigned char *TileData, uint8_t lf, uint8_t num_packe
 extern uint8_t CheckBusy();
 extern void PrintScreen(uint8_t linefeed);
 extern void PrintScreen360(uint8_t linefeed);
-//extern void PrintScreen361(uint8_t linefeed);
