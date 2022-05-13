@@ -147,7 +147,7 @@ void PrintTileData(uint8_t *TileData, uint8_t lf, uint8_t num_packets){
     }
 }
 
-/*void PrintScreen(uint8_t linefeed) {
+void PrintScreen(uint8_t linefeed) {
     uint8_t x, y;
     uint8_t p_data[16];
     for (y=0; y<18; y++) {
@@ -156,7 +156,7 @@ void PrintTileData(uint8_t *TileData, uint8_t lf, uint8_t num_packets){
             PrintTileData(p_data, linefeed, 9);
         }
     }
-}*//*
+}/*
 void PrintScreen360(uint8_t linefeed){
 	PrinterInit();
 	uint8_t p_data[16];
