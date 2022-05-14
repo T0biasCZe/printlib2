@@ -148,14 +148,15 @@ void PrintTileData(uint8_t *TileData, uint8_t lf, uint8_t num_packets){
         }
     }
 }
-void fullPrinterInit(){
+uint8_t fullPrinterInit(uint8_t timeout){
 	PrinterInit();
-    do {
-		wait_vbl_done();
-    } while(GetPrinterStatus() || CheckLinkCable());
+	for(uint16_t attempts = 0; attempts < timeout*59;attempts++){
+		if(GetPrinterStatus() || CheckLinkCable()) wait_vbl_done();
+		else return 1;
+	}
+	return 0;
 }
 void PrintScreen(uint8_t linefeed) {
-	fullPrinterInit();
     uint8_t x, y;
     uint8_t p_data[16];
     for (y=0; y<18; y++) {
@@ -164,9 +165,25 @@ void PrintScreen(uint8_t linefeed) {
             PrintTileData(p_data, linefeed, 9);
         }
     }
+	
 }
+
+/*void PrintScreen(uint8_t linefeed, uint8_t timeout) {
+	if(fullPrinterInit(timeout)){
+		uint8_t x, y;
+		uint8_t p_data[16];
+		for (y=0; y<18; y++) {
+			for (x=0; x<20; x++) {
+				get_bkg_data(get_vram_byte(get_bkg_xy_addr(x, y)), 1, p_data);
+				PrintTileData(p_data, linefeed, 9);
+			}
+		}
+		return 1;
+	}
+	else return 0;	
+}*/
+
 void PrintScreen360(uint8_t linefeed){
-	fullPrinterInit();
     uint8_t p_data[16];
     uint8_t* curr_tile = (uint8_t*)0x8100;
     for(uint16_t tile = 0; tile < 360; tile++){
