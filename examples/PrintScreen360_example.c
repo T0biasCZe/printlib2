@@ -15,5 +15,9 @@ void main(){
 		old = cur;
 	}
 	//print the screen
-	PrintScreen360(1);
+	if(fullPrinterInit(5)){
+		PrintScreen360(1);
+		gprint("print succesful");
+	}
+	else gprint("printer not connected");
 }
